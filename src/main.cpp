@@ -3,7 +3,7 @@
 
 int main() {
     if (RUN_TESTS) {
-        return testFetchCommands();
+        return testFetchCommands() || testFetchProfiles();
     }
     return 0;
 }
