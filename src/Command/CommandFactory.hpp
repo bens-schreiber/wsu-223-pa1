@@ -6,6 +6,7 @@
 #include <vector>
 #include "Command.hpp"
 #include "../LinkedList/LinkedList.hpp"
+#include "../utils/FinallyBlock.hpp"
 
 class CommandFactory
 {
@@ -30,5 +31,13 @@ public:
             commands->add(CommandFactory::fromCSV(ss));
         }
         return *commands;
+    }
+
+    static LinkedList<Command> &fromCSVFile(std::string path) {
+        std::ifstream file(path);
+        FinallyBlock finally([&]() {
+            file.close();
+        });
+        return CommandFactory::fromCSVFile(file);
     }
 };

@@ -23,7 +23,7 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const Command &command)
     {
-        os << command.name << " " << command.description;
+        os << command.name;
         return os;
     }
 };

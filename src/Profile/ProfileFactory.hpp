@@ -6,6 +6,7 @@
 #include <sstream>
 #include <vector>
 #include "../LinkedList/LinkedList.hpp"
+#include "../utils/FinallyBlock.hpp"
 
 class ProfileFactory
 {
@@ -30,5 +31,14 @@ public:
             profiles->add(ProfileFactory::fromCSV(ss));
         }
         return *profiles;
+    }
+
+    static LinkedList<Profile> &fromCSVFile(std::string path)
+    {
+        std::ifstream file(path);
+        FinallyBlock finally([&]() {
+            file.close();
+        });
+        return ProfileFactory::fromCSVFile(file);
     }
 };

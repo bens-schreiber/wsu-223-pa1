@@ -1,5 +1,6 @@
 #include "consts.hpp"
 #include "test/test.hpp"
+#include "Game/Runner.hpp"
 
 
 /* 
@@ -17,5 +18,7 @@ int main()
     {
         return testFetchCommands() || testFetchProfiles();
     }
+
+    GameRunner::run();
     return 0;
 }

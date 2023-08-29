@@ -20,6 +20,11 @@ public:
         return points;
     }
 
+    void incrementPoints()
+    {
+        points++;
+    }
+
     friend std::ostream &operator<<(std::ostream &os, const Profile &profile)
     {
         os << profile.name << " " << profile.points;
