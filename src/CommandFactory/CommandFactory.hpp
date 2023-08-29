@@ -7,7 +7,7 @@
 
 class Command
 {
-    friend CommandFactory;
+    friend class CommandFactory;
     std::string name;
     std::string description;
 
@@ -37,7 +37,7 @@ class CommandFactory
     }
 
 public:
-    static std::vector<Command> fromCSVFile(std::ifstream file)
+    static std::vector<Command> fromCSVFile(std::ifstream &file)
     {
         std::vector<Command> commands;
         std::string line;
