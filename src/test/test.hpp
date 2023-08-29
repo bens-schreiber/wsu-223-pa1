@@ -7,34 +7,40 @@
 #include "../Command/CommandFactory.hpp"
 #include "../Profile/ProfileFactory.hpp"
 
-int testFetchCommands() {
+int testFetchCommands()
+{
     std::ifstream file(COMMANDS_PATH);
     std::vector<Command> commands = CommandFactory::fromCSVFile(file);
 
-    if (!file.is_open()) {
+    if (!file.is_open())
+    {
         std::cout << "Error opening file" << std::endl;
         return 1;
     }
 
     auto iter = 1;
-    for (const auto &command : commands) {
+    for (const auto &command : commands)
+    {
         std::cout << iter++ << " " << command.getName() << " - " << command.getDescription() << std::endl;
     }
     file.close();
     return 0;
 }
 
-int testFetchProfiles() {
+int testFetchProfiles()
+{
     std::ifstream file(PROFILES_PATH);
     std::vector<Profile> profiles = ProfileFactory::fromCSVFile(file);
 
-    if (!file.is_open()) {
+    if (!file.is_open())
+    {
         std::cout << "Error opening file" << std::endl;
         return 1;
     }
 
     auto iter = 1;
-    for (const auto &profile : profiles) {
+    for (const auto &profile : profiles)
+    {
         std::cout << iter++ << " " << profile.getName() << " - " << profile.getPoints() << std::endl;
     }
     file.close();

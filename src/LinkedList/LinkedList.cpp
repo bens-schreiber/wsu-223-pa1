@@ -32,18 +32,24 @@ void LinkedList<T>::add(T data)
 }
 
 template <class T>
-void LinkedList<T>::remove(int index) {
-    if (index < 0 || index >= size) {
+void LinkedList<T>::remove(int index)
+{
+    if (index < 0 || index >= size)
+    {
         return;
     }
-    if (index == 0) {
+    if (index == 0)
+    {
         Node<T> *temp = head;
         head = head->getNext();
         temp->setNext(nullptr);
         delete temp;
-    } else {
+    }
+    else
+    {
         Node<T> *prev = head;
-        for (int i = 0; i < index - 1; i++) {
+        for (int i = 0; i < index - 1; i++)
+        {
             prev = prev->getNext();
         }
         Node<T> *temp = prev->getNext();
@@ -55,19 +61,21 @@ void LinkedList<T>::remove(int index) {
 }
 
 template <class T>
-void LinkedList<T>::clear() {
-    while (!isEmpty()) {
+void LinkedList<T>::clear()
+{
+    while (!isEmpty())
+    {
         remove(0);
     }
 }
 
 template <class T>
-void LinkedList<T>::print() {
+void LinkedList<T>::print()
+{
     Node<T> *temp = head;
-    while (temp != nullptr) {
+    while (temp != nullptr)
+    {
         std::cout << temp->getData() << std::endl;
         temp = temp->getNext();
     }
 }
-
-
