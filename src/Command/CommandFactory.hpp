@@ -4,26 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-
-class Command
-{
-    friend class CommandFactory;
-    std::string name;
-    std::string description;
-
-    Command(std::string name, std::string description) : name(name), description(description) {}
-
-public:
-    std::string getName() const
-    {
-        return name;
-    }
-
-    std::string getDescription() const
-    {
-        return description;
-    }
-};
+#include "Command.hpp"
 
 class CommandFactory
 {
