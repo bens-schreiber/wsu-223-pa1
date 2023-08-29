@@ -1,4 +1,7 @@
+#pragma once
 #include <iostream>
+#include "../Profile/Profile.hpp"
+#include "../Command/Command.hpp"
 
 template <class T>
 class Node
@@ -8,7 +11,7 @@ private:
     Node<T> *next;
 
 public:
-    Node(data) : data(data), next(nullptr) {}
+    Node(T data) : data(data), next(nullptr) {}
 
     ~Node()
     {
@@ -21,7 +24,7 @@ public:
     }
     void setData(T data)
     {
-        this.data = data;
+        this->data = data;
     }
 
     Node<T> *getNext()
@@ -31,7 +34,7 @@ public:
 
     void setNext(Node<T> *next)
     {
-        this.next = next;
+        this->next = next;
     }
 };
 

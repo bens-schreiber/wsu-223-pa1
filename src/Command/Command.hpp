@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <string>
 
 class Command
@@ -18,5 +19,11 @@ public:
     std::string getDescription() const
     {
         return description;
+    }
+
+    friend std::ostream &operator<<(std::ostream &os, const Command &command)
+    {
+        os << command.name << " " << command.description;
+        return os;
     }
 };

@@ -79,3 +79,6 @@ void LinkedList<T>::print()
         temp = temp->getNext();
     }
 }
+
+template class LinkedList<Profile>;
+template class LinkedList<Command>;

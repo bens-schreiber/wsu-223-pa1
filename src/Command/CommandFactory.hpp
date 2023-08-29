@@ -5,6 +5,7 @@
 #include <sstream>
 #include <vector>
 #include "Command.hpp"
+#include "../LinkedList/LinkedList.hpp"
 
 class CommandFactory
 {
@@ -18,16 +19,16 @@ class CommandFactory
     }
 
 public:
-    static std::vector<Command> fromCSVFile(std::ifstream &file)
+
+    static LinkedList<Command> &fromCSVFile(std::ifstream &file)
     {
-        std::vector<Command> commands;
+        LinkedList<Command> *commands = new LinkedList<Command>();
         std::string line;
         while (std::getline(file, line))
         {
             std::istringstream ss(line);
-
-            commands.push_back(CommandFactory::fromCSV(ss));
+            commands->add(CommandFactory::fromCSV(ss));
         }
-        return commands;
+        return *commands;
     }
 };

@@ -1,3 +1,4 @@
+#pragma once
 #include <string>
 
 class Profile
@@ -17,5 +18,11 @@ public:
     unsigned int getPoints() const
     {
         return points;
+    }
+
+    friend std::ostream &operator<<(std::ostream &os, const Profile &profile)
+    {
+        os << profile.name << " " << profile.points;
+        return os;
     }
 };

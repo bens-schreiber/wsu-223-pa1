@@ -1,9 +1,11 @@
+#pragma once
 #include "Profile.hpp"
 #include <string>
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include "../LinkedList/LinkedList.hpp"
 
 class ProfileFactory
 {
@@ -17,16 +19,16 @@ class ProfileFactory
     }
 
 public:
-    static std::vector<Profile> fromCSVFile(std::ifstream &file)
+
+    static LinkedList<Profile> &fromCSVFile(std::ifstream &file)
     {
-        std::vector<Profile> profiles;
+        LinkedList<Profile> *profiles = new LinkedList<Profile>();
         std::string line;
         while (std::getline(file, line))
         {
             std::istringstream ss(line);
-
-            profiles.push_back(ProfileFactory::fromCSV(ss));
+            profiles->add(ProfileFactory::fromCSV(ss));
         }
-        return profiles;
+        return *profiles;
     }
 };

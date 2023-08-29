@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -6,11 +7,11 @@
 #include "../consts.hpp"
 #include "../Command/CommandFactory.hpp"
 #include "../Profile/ProfileFactory.hpp"
+#include "../LinkedList/LinkedList.hpp"
 
 int testFetchCommands()
 {
     std::ifstream file(COMMANDS_PATH);
-    std::vector<Command> commands = CommandFactory::fromCSVFile(file);
 
     if (!file.is_open())
     {
@@ -18,11 +19,9 @@ int testFetchCommands()
         return 1;
     }
 
-    auto iter = 1;
-    for (const auto &command : commands)
-    {
-        std::cout << iter++ << " " << command.getName() << " - " << command.getDescription() << std::endl;
-    }
+    LinkedList<Command> commands = CommandFactory::fromCSVFile(file);
+    commands.print();
+
     file.close();
     return 0;
 }
@@ -30,7 +29,6 @@ int testFetchCommands()
 int testFetchProfiles()
 {
     std::ifstream file(PROFILES_PATH);
-    std::vector<Profile> profiles = ProfileFactory::fromCSVFile(file);
 
     if (!file.is_open())
     {
@@ -38,11 +36,9 @@ int testFetchProfiles()
         return 1;
     }
 
-    auto iter = 1;
-    for (const auto &profile : profiles)
-    {
-        std::cout << iter++ << " " << profile.getName() << " - " << profile.getPoints() << std::endl;
-    }
+    LinkedList<Profile> profiles = ProfileFactory::fromCSVFile(file);
+    profiles.print();
+
     file.close();
     return 0;
 }
