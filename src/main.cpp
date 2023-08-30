@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include "consts.hpp"
 #include "test/test.hpp"
 #include "Game/Runner.hpp"
@@ -14,6 +15,8 @@
 
 int main()
 {
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+    
     if (RUN_TESTS)
     {
         return testFetchCommands() || testFetchProfiles();

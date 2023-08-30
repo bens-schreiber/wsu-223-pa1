@@ -1,6 +1,19 @@
+#include <vector>
+#include <algorithm>
+#include <random>
 #include "../Command/CommandFactory.hpp"
 #include "../Profile/ProfileFactory.hpp"
 #include "../consts.hpp"
+
+// (via ChatGPT)
+void clearScreen()
+{
+#ifdef _WIN32
+    system("cls"); // For Windows
+#else
+    std::cout << "\x1B[2J\x1B[H"; // For Unix-like systems (including macOS and Linux)
+#endif
+}
 
 namespace GameRunner
 {
@@ -10,14 +23,79 @@ namespace GameRunner
     // For every correct answer, the player gets a point.
     void run()
     {
-        LinkedList<Command> &commands = CommandFactory::fromCSVFile(COMMANDS_PATH);
-        LinkedList<Profile> &profiles = ProfileFactory::fromCSVFile(PROFILES_PATH);
 
-        std::cout << "\nPress Enter to see all commands";
+        // Used for iterating through each command
+        LinkedList<Command> &commands = CommandFactory::fromCSVFile(COMMANDS_PATH);
+
+        // An array of all player profiles
+        Profile *profiles = ProfileFactory::fromCSVFile(PROFILES_PATH);
+
+        // Used to shuffle the commands and enumerate
+        std::vector<Command> display;
+
+        std::cout << "\nPress Enter to begin";
         std::cin.get();
-        commands.print();
+
+        // enumerate through the entire linked list
+        auto iterator = commands.getHead();
+        while (iterator != nullptr)
+        {
+            clearScreen();
+
+            // Command to match
+            Command answer = iterator->getData();
+            std::cout << answer.getName() << std::endl
+                      << std::endl;
+
+            // Add the command to match and two randoms to the game commands
+            // LinkedList::random takes in an exclusion list, so we won't get the same command twice.
+            display.push_back(iterator->getData());
+            display.push_back(commands.random(display));
+            display.push_back(commands.random(display));
+
+            // Create a random number generator
+            std::random_device rd;
+            std::mt19937 gen(rd());
+
+            // Shuffle the vector using std::shuffle
+            std::shuffle(display.begin(), display.end(), gen);
+
+            // Display all commands
+            for (auto i = 0; i < display.size(); ++i)
+            {
+                std::cout << "  " << i + 1 << ". " << display[i].getDescription() << std::endl
+                          << std::endl;
+            }
+
+            // Input loop
+            while (1)
+            {
+                try
+                {
+                    // Accept input
+                    std::cout << "Enter the number of the correct answer: ";
+                    std::string input;
+                    std::getline(std::cin, input);
+
+                    display[std::stoi(input) - 1] == answer ? std::cout << "Correct!" : std::cout << "Incorrect!";
+                    break;
+                }
+                catch (...)
+                {
+                    std::cout << "Invalid input" << std::endl;
+                }
+            }
+
+            // Await input before next question
+            std::cout << "\nPress Enter for the next quesiton";
+            std::cin.get();
+
+            // Continue the game
+            display.clear();
+            iterator = iterator->getNext();
+        }
 
         std::cout << "\nPress Enter to exit";
-        std::cin.get(); // Wait for Enter key
+        std::cin.get();
     }
 }

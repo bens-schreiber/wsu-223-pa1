@@ -5,7 +5,6 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include "../LinkedList/LinkedList.hpp"
 #include "../utils/FinallyBlock.hpp"
 
 class ProfileFactory
@@ -21,19 +20,23 @@ class ProfileFactory
 
 public:
 
-    static LinkedList<Profile> &fromCSVFile(std::ifstream &file)
+    // array of profiles that ends in nullptr
+    static Profile* &fromCSVFile(std::ifstream &file)
     {
-        LinkedList<Profile> *profiles = new LinkedList<Profile>();
+        Profile **profiles = new Profile*[100];
         std::string line;
+        int i = 0;
         while (std::getline(file, line))
         {
             std::istringstream ss(line);
-            profiles->add(ProfileFactory::fromCSV(ss));
+            profiles[i] = new Profile(ProfileFactory::fromCSV(ss));
+            i++;
         }
+        profiles[i] = nullptr;
         return *profiles;
     }
 
-    static LinkedList<Profile> &fromCSVFile(std::string path)
+    static Profile* fromCSVFile(std::string path)
     {
         std::ifstream file(path);
         FinallyBlock finally([&]() {

@@ -80,5 +80,19 @@ void LinkedList<T>::print()
     }
 }
 
-template class LinkedList<Profile>;
+template <class T>
+T LinkedList<T>::random(std::vector<T> &exclude) const {
+    int index = rand() % size;
+    Node<T> *temp = head;
+    for (int i = 0; i < index; i++) {
+        temp = temp->getNext();
+    }
+    for (T data : exclude) {
+        if (temp->getData() == data) {
+            return random(exclude);
+        }
+    }
+    return temp->getData();
+}
+
 template class LinkedList<Command>;

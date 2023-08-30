@@ -36,8 +36,7 @@ int testFetchProfiles()
         return 1;
     }
 
-    LinkedList<Profile> profiles = ProfileFactory::fromCSVFile(file);
-    profiles.print();
+    Profile *profiles = ProfileFactory::fromCSVFile(file);
 
     file.close();
     return 0;

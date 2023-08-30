@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <vector>
 #include "../Profile/Profile.hpp"
 #include "../Command/Command.hpp"
 
@@ -56,14 +57,14 @@ public:
         return size;
     }
 
-    T getHead() const
+    Node<T> *getHead() const
     {
-        return head->getData();
+        return head;
     }
 
-    T getTail() const
+    Node<T> *getTail() const
     {
-        return tail->getData();
+        return tail;
     }
 
     bool isEmpty() const
@@ -71,6 +72,7 @@ public:
         return size == 0;
     }
 
+    T random(std::vector<T>&) const;
     void add(T);
     void remove(int);
     void clear();

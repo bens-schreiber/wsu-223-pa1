@@ -21,6 +21,11 @@ public:
         return description;
     }
 
+    bool operator==(const Command &other) const
+    {
+        return name == other.name;
+    }
+
     friend std::ostream &operator<<(std::ostream &os, const Command &command)
     {
         os << command.name;
