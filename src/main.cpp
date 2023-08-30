@@ -2,9 +2,9 @@
 #include "consts.hpp"
 #include "test/test.hpp"
 #include "Game/Runner.hpp"
+#include "SaveContent/SaveContent.hpp"
 
-
-/* 
+/*
 
     ADVANTAGE / DISADVANTAGE LINKED LIST:
     When using a linked list, you get constant insertion time, works fine for the act of
@@ -16,12 +16,16 @@
 int main()
 {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
-    
+
     if (RUN_TESTS)
     {
-        return testFetchCommands() || testFetchProfiles();
+        return testFetchCommands() || testFetchProfiles() || testSaveProfiles();
     }
 
-    GameRunner::run();
+    LinkedList<Command> &commands = CommandFactory::fromCSVFile(COMMANDS_PATH);
+    Profile *profiles = ProfileFactory::fromCSVFile(PROFILES_PATH);
+    GameRunner::run(commands, profiles);
+    SaveContent::saveProfiles(profiles);
+
     return 0;
 }

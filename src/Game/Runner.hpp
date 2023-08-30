@@ -21,14 +21,10 @@ namespace GameRunner
     // A game where the player has to match the description of a linux command with the name of a command.
     // The player is shown a list of all commands, and then is asked to match the name of the command with the description.
     // For every correct answer, the player gets a point.
-    void run()
+    void run(LinkedList<Command> &commands, Profile *profiles)
     {
 
-        // Used for iterating through each command
-        LinkedList<Command> &commands = CommandFactory::fromCSVFile(COMMANDS_PATH);
-
-        // An array of all player profiles
-        Profile *profiles = ProfileFactory::fromCSVFile(PROFILES_PATH);
+        Profile &profile = profiles[0];
 
         // Used to shuffle the commands and enumerate
         std::vector<Command> display;
@@ -41,6 +37,7 @@ namespace GameRunner
         while (iterator != nullptr)
         {
             clearScreen();
+            std::cout << "Points: " << profile.getPoints() << std::endl;
 
             // Command to match
             Command answer = iterator->getData();
@@ -77,7 +74,15 @@ namespace GameRunner
                     std::string input;
                     std::getline(std::cin, input);
 
-                    display[std::stoi(input) - 1] == answer ? std::cout << "Correct!" : std::cout << "Incorrect!";
+                    if (display[std::stoi(input) - 1] == answer)
+                    {
+                        std::cout << "Correct!" << std::endl;
+                        profile.incrementPoints();
+                    }
+                    else
+                    {
+                        std::cout << "Incorrect!" << std::endl;
+                    }
                     break;
                 }
                 catch (...)

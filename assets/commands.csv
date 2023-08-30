@@ -3,28 +3,3 @@ ls, list files
 cd, change directories
 mkdir, create a directory
 rmdir, remove a directory
-rm, remove a file
-cp, copy a file/folder
-mv, move a file/folder
-ssh, attempt a secure shell connection
-scp, copy files accross an ssh connection
-man, display documentation for any linux command
-g++, GNU C++ compiler
-gcc, GNU C Compiler
-make, uses a makefile to compile C programs
-ps, lists processes and pids that are running
-kill, terminate a program
-top, display all running processes
-who, display users
-chmod, edit permissions for a file/folder
-cat, output the contents of a folder as if it was a text file (UTF)
-alias, shortcut for commands
-chown, change the owner of a folder/file
-df, disk space utility
-grep, used to specify regexes on outputs
-echo, like print for bash
-exit, ends a terminal session
-clear, clears the screen (ctrl l)
-find, finds a file name recursively
-finger, displays info on system users
-free, free allocated memory
