@@ -4,7 +4,7 @@
 class Profile
 {
     std::string name;
-    unsigned int points;
+    signed int points;
 
     Profile(std::string name, unsigned int points) : name(name), points(points) {}
     friend class ProfileFactory;
@@ -15,7 +15,7 @@ public:
         return name;
     }
 
-    unsigned int getPoints() const
+    signed int getPoints() const
     {
         return points;
     }
@@ -23,5 +23,10 @@ public:
     void incrementPoints()
     {
         points++;
+    }
+
+    void decrementPoints()
+    {
+        points--;
     }
 };

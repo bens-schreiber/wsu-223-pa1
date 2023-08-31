@@ -15,8 +15,9 @@ namespace Menu
         static void printRules()
         {
             clearOutput();
-            std::cout << "Select the matching description to a command. If your answer is correct, you will gain a point." << std::endl;
-            std::cout << "\nPress Enter to continue";
+            std::cout << "Select the matching description to a command. If your answer is correct, you will gain a point. " << std::endl
+                      << "If your answer is incorrect, you will lose a point" << std::endl << std::endl
+                      << "Press enter to Continue";
             std::cin.ignore();
             std::cin.get();
         }

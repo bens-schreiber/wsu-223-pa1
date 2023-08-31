@@ -63,6 +63,7 @@ void Game::inputLoop(Command &answer)
             else
             {
                 std::cout << "Incorrect!" << std::endl;
+                profile->decrementPoints();
             }
             break;
         }
