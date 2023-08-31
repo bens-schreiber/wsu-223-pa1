@@ -14,26 +14,26 @@ private:
 public:
     Node(T data) : data(data), next(nullptr) {}
 
-    ~Node()
+    inline ~Node()
     {
         delete next;
     }
 
-    T getData() const
+    inline T getData() const
     {
         return data;
     }
-    void setData(T data)
+    inline void setData(T data)
     {
         this->data = data;
     }
 
-    Node<T> *getNext()
+    inline Node<T> *getNext()
     {
         return next;
     }
 
-    void setNext(Node<T> *next)
+    inline void setNext(Node<T> *next)
     {
         this->next = next;
     }
@@ -52,22 +52,22 @@ public:
 
     ~LinkedList();
 
-    int getSize() const
+    inline int getSize() const
     {
         return size;
     }
 
-    Node<T> *getHead() const
+    inline Node<T> *getHead() const
     {
         return head;
     }
 
-    Node<T> *getTail() const
+    inline Node<T> *getTail() const
     {
         return tail;
     }
 
-    bool isEmpty() const
+    inline bool isEmpty() const
     {
         return size == 0;
     }

@@ -11,22 +11,22 @@ class Command
     friend class CommandFactory;
 
 public:
-    std::string getName() const
+    inline std::string getName() const
     {
         return name;
     }
 
-    std::string getDescription() const
+    inline std::string getDescription() const
     {
         return description;
     }
 
-    bool operator==(const Command &other) const
+    inline bool operator==(const Command &other) const
     {
         return name == other.name;
     }
 
-    friend std::ostream &operator<<(std::ostream &os, const Command &command)
+    inline friend std::ostream &operator<<(std::ostream &os, const Command &command)
     {
         os << command.name;
         return os;

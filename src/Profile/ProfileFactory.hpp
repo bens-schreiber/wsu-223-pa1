@@ -20,24 +20,9 @@ class ProfileFactory
 
 public:
 
-    static Profile* &fromCSVFile(std::ifstream &file)
-    {
-        Profile **profiles = new Profile*[100];
-        std::string line;
-        int i = 0;
-        while (std::getline(file, line))
-        {
-            std::istringstream ss(line);
-            if (ss.str() == "") break;
-            profiles[i] = new Profile(ProfileFactory::fromCSV(ss));
-            i++;
-        }
-        profiles[i] = new Profile("", 0);
-        
-        return *profiles;
-    }
+    static Profile* &fromCSVFile(std::ifstream &file);
 
-    static Profile* fromCSVFile(std::string path)
+    inline static Profile* fromCSVFile(std::string path)
     {
         std::ifstream file(path);
         FinallyBlock finally([&]() {

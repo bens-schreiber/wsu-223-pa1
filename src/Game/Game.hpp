@@ -43,7 +43,7 @@ class Game
 
 public:
     // Begins a game with some profile and command list
-    static void start(Profile *profiles, LinkedList<Command> &commands)
+    inline static void start(Profile *profiles, LinkedList<Command> &commands)
     {
         Game game(profiles, commands, commands.getHead());
 

@@ -1,8 +1,8 @@
 #pragma once
 #include <iostream>
 #include <cstdlib>
+#include "../SaveContent/SaveContent.hpp"
 #include "../consts.hpp"
-#include "../test/test.hpp"
 #include "../Game/Game.hpp"
 #include "../utils/utils.hpp"
 
@@ -22,14 +22,14 @@ namespace Menu
 
         static void removeCommand();
 
-        static void exit()
+        inline static void exit()
         {
             std::cout << "Goodbye!" << std::endl;
             std::exit(0);
         }
 
     public:
-        static Option *enumerate()
+        inline static Option *enumerate()
         {
             static Option options[] = {
                 printRules,
@@ -43,7 +43,7 @@ namespace Menu
         }
     };
 
-    void display()
+    inline void display()
     {
         clearOutput();
         std::cout << "1. Print rules" << std::endl
@@ -55,23 +55,6 @@ namespace Menu
                   << "Enter a number: ";
     }
 
-    void run()
-    {
-        while (1)
-        {
-            display();
-
-            int input;
-            while (!(std::cin >> input) || input < 1 || input > 6)
-            {
-                std::cout << "Invalid input, please enter a number between 1 and 6" << std::endl;
-                std::cin.clear();
-                std::cin.ignore();
-            }
-
-            // run the selected option
-            Option *options = Options::enumerate();
-            options[input - 1]();
-        }
-    }
+    // Run the menu loop
+    void run();
 }

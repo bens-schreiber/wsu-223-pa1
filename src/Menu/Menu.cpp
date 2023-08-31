@@ -1,5 +1,25 @@
 #include "Menu.hpp"
 
+void Menu::run()
+{
+    while (1)
+    {
+        display();
+
+        int input;
+        while (!(std::cin >> input) || input < 1 || input > 6)
+        {
+            std::cout << "Invalid input, please enter a number between 1 and 6" << std::endl;
+            std::cin.clear();
+            std::cin.ignore();
+        }
+
+        // run the selected option
+        Option *options = Options::enumerate();
+        options[input - 1]();
+    }
+}
+
 // Output the game rules
 void Menu::Options::printRules()
 {

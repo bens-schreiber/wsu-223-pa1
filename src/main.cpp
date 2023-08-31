@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include "consts.hpp"
 #include "Menu/Menu.hpp"
+#include "test/test.hpp"
 
 /*
 
@@ -13,7 +14,7 @@
 
 int main()
 {
-    if (RUN_TESTS) return testFetchCommands() || testFetchProfiles() || testSaveProfiles();
+    if (RUN_TESTS) return Test::fetchCommands() || Test::fetchProfiles() || Test::saveProfiles();
     Menu::run();
     return 0;
 }
