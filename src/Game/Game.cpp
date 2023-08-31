@@ -57,12 +57,12 @@ void Game::inputLoop(Command &answer)
 
             if (display[std::stoi(input) - 1] == answer)
             {
-                std::cout << "Correct!" << std::endl;
+                std::cout << "Correct! " << answer.getName() << " - " << answer.getDescription() << std::endl;
                 profile->incrementPoints();
             }
             else
             {
-                std::cout << "Incorrect!" << std::endl;
+                std::cout << "Incorrect! " << answer.getName() << " - " << answer.getDescription() << std::endl;
                 profile->decrementPoints();
             }
             break;
