@@ -13,15 +13,7 @@
 
 int main()
 {
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
-
-    if (RUN_TESTS)
-    {
-        return testFetchCommands() || testFetchProfiles() || testSaveProfiles();
-    }
-
-    
+    if (RUN_TESTS) return testFetchCommands() || testFetchProfiles() || testSaveProfiles();
     Menu::run();
-
     return 0;
 }
