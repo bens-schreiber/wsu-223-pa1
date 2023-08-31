@@ -1,8 +1,6 @@
 #include <cstdlib>
 #include "consts.hpp"
-#include "test/test.hpp"
-#include "Game/Game.hpp"
-#include "SaveContent/SaveContent.hpp"
+#include "Menu/Menu.hpp"
 
 /*
 
@@ -22,11 +20,8 @@ int main()
         return testFetchCommands() || testFetchProfiles() || testSaveProfiles();
     }
 
-    LinkedList<Command> &commands = CommandFactory::fromCSVFile(COMMANDS_PATH);
-    Profile *profiles = ProfileFactory::fromCSVFile(PROFILES_PATH);
-    // GameRunner::run(commands, profiles);
-    Game::start(profiles, commands);
-    SaveContent::saveProfiles(profiles);
+    
+    Menu::run();
 
     return 0;
 }

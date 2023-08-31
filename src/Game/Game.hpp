@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <random>
+#include "../utils/utils.hpp"
 #include "../Command/CommandFactory.hpp"
 #include "../Profile/ProfileFactory.hpp"
 #include "../consts.hpp"
@@ -16,7 +17,6 @@ class Game
     Game(Profile *profile, LinkedList<Command> &commands, Node<Command> *iterator) : profile(profile), commands(commands), iterator(iterator) {}
     ~Game() {}
 
-    void clearScreen() const;
     void doRound();
     void shuffleDisplay();
     void enumerateDisplay() const;
@@ -26,7 +26,7 @@ class Game
     {
         while (iterator != nullptr)
         {
-            clearScreen();
+            clearOutput();
             std::cout << "Points: " << profile->getPoints() << std::endl;
 
             doRound();
