@@ -1,7 +1,7 @@
 #include <cstdlib>
 #include "consts.hpp"
 #include "test/test.hpp"
-#include "Game/Runner.hpp"
+#include "Game/Game.hpp"
 #include "SaveContent/SaveContent.hpp"
 
 /*
@@ -24,7 +24,8 @@ int main()
 
     LinkedList<Command> &commands = CommandFactory::fromCSVFile(COMMANDS_PATH);
     Profile *profiles = ProfileFactory::fromCSVFile(PROFILES_PATH);
-    GameRunner::run(commands, profiles);
+    // GameRunner::run(commands, profiles);
+    Game::start(profiles, commands);
     SaveContent::saveProfiles(profiles);
 
     return 0;
