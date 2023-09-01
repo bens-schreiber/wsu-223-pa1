@@ -1,5 +1,24 @@
 #include "Menu.hpp"
 
+static Profile *_profiles = nullptr;
+
+Profile *profiles()
+{
+    return _profiles == nullptr ? ProfileFactory::fromCSVFile(PROFILES_PATH) : _profiles;
+}
+
+void Menu::display()
+{
+    clearOutput();
+    std::cout << "1. Print rules" << std::endl
+              << "2. Play game" << std::endl
+              << "3. Load Previous Game" << std::endl
+              << "4. Add Command" << std::endl
+              << "5. Remove Command" << std::endl
+              << "6. Exit" << std::endl
+              << "Enter a number: ";
+}
+
 void Menu::run()
 {
     while (1)
@@ -38,9 +57,8 @@ void Menu::Options::playGame()
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
     LinkedList<Command> &commands = CommandFactory::fromCSVFile(COMMANDS_PATH);
-    Profile *profiles = ProfileFactory::fromCSVFile(PROFILES_PATH);
-    Game::start(profiles, commands);
-    SaveContent::saveProfiles(profiles);
+    _profiles = profiles();
+    Game::start(_profiles, commands);
 }
 
 // Attempt to load and play a player profile
@@ -79,15 +97,14 @@ void Menu::Options::loadGame()
     std::cin.ignore();
     std::getline(std::cin, name);
 
-    Profile *profiles = ProfileFactory::fromCSVFile(PROFILES_PATH);
-    for (int i = 0; profiles[i].getName() != ""; i++)
+    _profiles = profiles();
+    for (int i = 0; _profiles[i].getName() != ""; i++)
     {
-        if (std::tolower(profiles[i].getName()[0]) == std::tolower(name[0]))
+        if (std::tolower(_profiles[i].getName()[0]) == std::tolower(name[0]))
         {
 
             // Profile found, run the game with this profile
-            Game::start(&profiles[i], CommandFactory::fromCSVFile(COMMANDS_PATH));
-            SaveContent::saveProfiles(profiles);
+            Game::start(&_profiles[i], CommandFactory::fromCSVFile(COMMANDS_PATH));
             notFound = false;
             return;
         }
@@ -125,4 +142,11 @@ void Menu::Options::removeCommand()
 
     // Command command(name, "");
     // SaveContent::removeCommand(command);
+}
+
+void Menu::Options::exit()
+{
+    std::cout << "Goodbye!" << std::endl;
+    SaveContent::saveProfiles(profiles());
+    std::exit(0);
 }

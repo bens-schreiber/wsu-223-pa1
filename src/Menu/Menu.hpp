@@ -22,11 +22,7 @@ namespace Menu
 
         static void removeCommand();
 
-        inline static void exit()
-        {
-            std::cout << "Goodbye!" << std::endl;
-            std::exit(0);
-        }
+        static void exit();
 
     public:
         inline static Option *enumerate()
@@ -43,17 +39,7 @@ namespace Menu
         }
     };
 
-    inline void display()
-    {
-        clearOutput();
-        std::cout << "1. Print rules" << std::endl
-                  << "2. Play game" << std::endl
-                  << "3. Load Previous Game" << std::endl
-                  << "4. Add Command" << std::endl
-                  << "5. Remove Command" << std::endl
-                  << "6. Exit" << std::endl
-                  << "Enter a number: ";
-    }
+    void display();
 
     // Run the menu loop
     void run();
