@@ -71,7 +71,18 @@ void Menu::Options::printRules()
 void Menu::Options::playGame()
 {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
-    Game::start(profiles(), commands());
+
+    // ask how many questions
+    auto questions = 0;
+    std::cout << "How many questions would you like to answer? (5-30): ";
+    while (!(std::cin >> questions) || questions < 5 || questions > 30)
+    {
+        std::cout << "Invalid input, please enter a number between 5 and 30" << std::endl;
+        std::cin.clear();
+        std::cin.ignore();
+    }
+
+    Game::start(profiles(), commands(), questions);
 }
 
 // Attempt to load and play a player profile
@@ -115,8 +126,7 @@ void Menu::Options::loadGame()
         if (std::tolower(profiles()[i].getName()[0]) == std::tolower(name[0]))
         {
 
-            // Profile found, run the game with this profile
-            Game::start(&profiles()[i], commands());
+            playGame();
             notFound = false;
             return;
         }
@@ -129,7 +139,8 @@ void Menu::Options::loadGame()
 }
 
 // Add a command to _commands
-void Menu::Options::addCommand() {
+void Menu::Options::addCommand()
+{
 
     std::string name;
     std::string description;
@@ -156,7 +167,6 @@ void Menu::Options::removeCommand()
 
     Command newCommand(name, "");
     commands().remove(newCommand);
-
 }
 
 void Menu::Options::exit()

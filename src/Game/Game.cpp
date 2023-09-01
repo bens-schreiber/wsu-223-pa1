@@ -1,5 +1,31 @@
 #include "Game.hpp"
 
+void Game::run()
+{
+    unsigned char round = 0;
+    while (iterator != nullptr)
+    {
+        round++;
+        if (round > questions)
+        {
+            break;
+        }
+        
+        clearOutput();
+        std::cout << "Points: " << profile->getPoints() << std::endl;
+
+        doRound();
+
+        // Await input before next question
+        std::cout << "\nPress Enter for the next quesiton";
+        std::cin.get();
+
+        // Continue the game
+        display.clear();
+        iterator = iterator->getNext();
+    }
+}
+
 void Game::doRound()
 {
 
