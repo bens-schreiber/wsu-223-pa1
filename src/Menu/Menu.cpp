@@ -1,10 +1,26 @@
 #include "Menu.hpp"
 
+/*
+
+    By the project requirements, profiles and commands should only be saved on exit,
+    thus requiring us to cache them here in static variables
+
+*/
+
 static Profile *_profiles = nullptr;
+
+static LinkedList<Command> *_commands = nullptr;
 
 Profile *profiles()
 {
-    return _profiles == nullptr ? ProfileFactory::fromCSVFile(PROFILES_PATH) : _profiles;
+    _profiles = _profiles == nullptr ? ProfileFactory::fromCSVFile(PROFILES_PATH) : _profiles;
+    return _profiles;
+}
+
+LinkedList<Command> &commands()
+{
+    _commands = _commands == nullptr ? &CommandFactory::fromCSVFile(COMMANDS_PATH) : _commands;
+    return *_commands;
 }
 
 void Menu::display()
@@ -55,10 +71,7 @@ void Menu::Options::printRules()
 void Menu::Options::playGame()
 {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
-
-    LinkedList<Command> &commands = CommandFactory::fromCSVFile(COMMANDS_PATH);
-    _profiles = profiles();
-    Game::start(_profiles, commands);
+    Game::start(profiles(), commands());
 }
 
 // Attempt to load and play a player profile
@@ -97,14 +110,13 @@ void Menu::Options::loadGame()
     std::cin.ignore();
     std::getline(std::cin, name);
 
-    _profiles = profiles();
-    for (int i = 0; _profiles[i].getName() != ""; i++)
+    for (int i = 0; profiles()[i].getName() != ""; i++)
     {
-        if (std::tolower(_profiles[i].getName()[0]) == std::tolower(name[0]))
+        if (std::tolower(profiles()[i].getName()[0]) == std::tolower(name[0]))
         {
 
             // Profile found, run the game with this profile
-            Game::start(&_profiles[i], CommandFactory::fromCSVFile(COMMANDS_PATH));
+            Game::start(&profiles()[i], commands());
             notFound = false;
             return;
         }
@@ -116,37 +128,41 @@ void Menu::Options::loadGame()
     return;
 }
 
-// Add a command to the command list
-void Menu::Options::addCommand()
-{
-    // clearOutput();
-    // std::cout << "Enter a command name: ";
-    // std::string name;
-    // std::getline(std::cin, name);
+// Add a command to _commands
+void Menu::Options::addCommand() {
 
-    // std::cout << "Enter a command description: ";
-    // std::string description;
-    // std::getline(std::cin, description);
+    std::string name;
+    std::string description;
 
-    // Command command(name, description);
-    // SaveContent::saveCommand(command);
+    std::cout << "Enter a command name: ";
+    std::cin.ignore();
+    std::getline(std::cin, name);
+
+    std::cout << "Enter a command description: ";
+    std::getline(std::cin, description);
+
+    Command newCommand(name, description);
+    commands().add(newCommand);
 }
 
-// Remove a command from the command list
+// Remove a command from _commands
 void Menu::Options::removeCommand()
 {
-    // clearOutput();
-    // std::cout << "Enter a command name: ";
-    // std::string name;
-    // std::getline(std::cin, name);
+    std::string name;
 
-    // Command command(name, "");
-    // SaveContent::removeCommand(command);
+    std::cout << "Enter a command name: ";
+    std::cin.ignore();
+    std::getline(std::cin, name);
+
+    Command newCommand(name, "");
+    commands().remove(newCommand);
+
 }
 
 void Menu::Options::exit()
 {
     std::cout << "Goodbye!" << std::endl;
     SaveContent::saveProfiles(profiles());
+    SaveContent::saveCommands(commands());
     std::exit(0);
 }

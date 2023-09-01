@@ -17,3 +17,23 @@ void SaveContent::saveProfiles(Profile *profiles)
     }
     file.close();
 }
+
+void SaveContent::saveCommands(LinkedList<Command> &commands)
+{
+    std::ofstream file(COMMANDS_PATH);
+    if (!file.is_open())
+    {
+        std::cout << "Error opening file" << std::endl;
+        return;
+    }
+
+    // enumerate commands while not nullptr
+    auto iterator = commands.getHead();
+    while (iterator != nullptr)
+    {
+        file << iterator->getData().getName() << "," << iterator->getData().getDescription() << std::endl;
+        iterator = iterator->getNext();
+    }
+
+    file.close();
+}

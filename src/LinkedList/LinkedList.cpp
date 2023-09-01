@@ -32,41 +32,39 @@ void LinkedList<T>::add(T data)
 }
 
 template <class T>
-void LinkedList<T>::remove(int index)
+void LinkedList<T>::remove(T data)
 {
-    if (index < 0 || index >= size)
+    Node<T> *temp = head;
+    Node<T> *prev = nullptr;
+    while (temp != nullptr)
     {
-        return;
-    }
-    if (index == 0)
-    {
-        Node<T> *temp = head;
-        head = head->getNext();
-        temp->setNext(nullptr);
-        delete temp;
-    }
-    else
-    {
-        Node<T> *prev = head;
-        for (int i = 0; i < index - 1; i++)
+        if (temp->getData() == data)
         {
-            prev = prev->getNext();
+            if (prev == nullptr)
+            {
+                head = temp->getNext();
+            }
+            else
+            {
+                prev->setNext(temp->getNext());
+            }
+            temp->setNext(nullptr);
+            delete temp;
+            size--;
+            return;
         }
-        Node<T> *temp = prev->getNext();
-        prev->setNext(temp->getNext());
-        temp->setNext(nullptr);
-        delete temp;
+        prev = temp;
+        temp = temp->getNext();
     }
-    size--;
 }
 
 template <class T>
 void LinkedList<T>::clear()
 {
-    while (!isEmpty())
-    {
-        remove(0);
-    }
+    delete head;
+    head = nullptr;
+    tail = nullptr;
+    size = 0;
 }
 
 template <class T>

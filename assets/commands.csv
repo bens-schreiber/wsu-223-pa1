@@ -28,3 +28,4 @@ clear, clears the screen (ctrl l)
 find, finds a file name recursively
 finger, displays info on system users
 free, free allocated memory
+neofetch,linux users fight over who can make this command look the best

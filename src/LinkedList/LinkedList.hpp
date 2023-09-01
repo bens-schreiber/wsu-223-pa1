@@ -74,7 +74,7 @@ public:
 
     T random(std::vector<T>&) const;
     void add(T);
-    void remove(int);
+    void remove(T);
     void clear();
     void print();
 };
